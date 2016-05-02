@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <header class="jumbotron hero-spacer">
+            <h1>Welcome to Rows!</h1>
+            <p>No matter in which format your tabular data is: rows will convert it and automatically detect types. Instead of trying to open your data just use rows. It is also locale-and-unicode aware. :)</p>
+        </header>
+        <h3> Select a File to Convert: </h3>
+        <div class="container" style="text-align:center;">
+            <form action="/" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if upload_form.errors %}
+                    <div class="alert alert-danger" role="alert"> {{ upload_form.errors.file_to_convert }} </div>
+                {% endif %}
+                {{ upload_form.file_to_convert }}
+                {{ upload_form.options }}
+                <br></br>
+                <p><input class="btn btn-primary btn-large" type="submit" value="Convert"/></p>
+            </form>
+        </div>
+{% endblock %}
