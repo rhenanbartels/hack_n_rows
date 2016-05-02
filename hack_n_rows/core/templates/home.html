@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
         <header class="jumbotron hero-spacer">
@@ -7,15 +8,17 @@
         </header>
         <h3> Select a File to Convert: </h3>
         <div class="container" style="text-align:center;">
-            <form action="/" method="post" enctype="multipart/form-data">
+            <form id="convert-form" action="/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                <div class="alert alert-danger" role="alert" id="custom-form-error" style="display:none"></div>
                 {% if upload_form.errors %}
                     <div class="alert alert-danger" role="alert"> {{ upload_form.errors.file_to_convert }} </div>
                 {% endif %}
                 {{ upload_form.file_to_convert }}
                 {{ upload_form.options }}
                 <br></br>
-                <p><input class="btn btn-primary btn-large" type="submit" value="Convert"/></p>
+                <p><input class="btn btn-primary btn-lg" type="submit" id="convert-button" value="Convert"/></p>
             </form>
         </div>
 {% endblock %}
+    <script src="{% static 'js/custom.js' %}"></script>
