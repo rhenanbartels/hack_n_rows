@@ -31,7 +31,7 @@ class ConvertedFile(object):
             rows_object = rows.import_from_html(file_object)
         elif from_file_extension == 'xls':
             temp_xls_file = _write_to_temporary_file(file_object, '.xls')
-            rows_object = rows.import_from_xls(temp_xls_file.name)
+            rows_object = rows.import_from_xls(file_object)
         elif from_file_extension == 'xlsx':
             pass
 
