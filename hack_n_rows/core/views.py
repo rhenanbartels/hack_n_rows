@@ -22,12 +22,18 @@ def home(request):
             else:
                 uploaded_file_name = _prepare_download_file_name(file_to_convert.name)
                 converted_file_object = ConvertedFile()
-                converted_file_object.convert(
-                        file_to_convert,
-                        uploaded_file_extension,
-                        choosen_file_extension.lower()
-                )
-                converted_file_object.unlink()
+                try:
+                    converted_file_object.convert(
+                            file_to_convert,
+                            uploaded_file_extension,
+                            choosen_file_extension.lower()
+                    )
+                    converted_file_object.unlink()
+                except IndexError:
+                    upload_form.add_error("file_to_convert", "Something went wrong during conversion, please check your file.")
+                    context['upload_form'] = upload_form
+                    return render(request, template_name, context)
+
                 return _create_file_response(
                         converted_file_object,
                         uploaded_file_name,
